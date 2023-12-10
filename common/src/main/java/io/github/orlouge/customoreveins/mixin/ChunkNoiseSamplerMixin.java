@@ -34,6 +34,7 @@ public abstract class ChunkNoiseSamplerMixin {
         for (CustomOreVein vein : PlatformHelper.getCustomOreVeinManager().getCustomOreVeins()) {
             builder.add(vein.createSampler(
                     d -> this.getActualDensityFunction(d.apply(new CustomOreVein.Visitor(noiseConfig))),
+                    noiseRouter2.veinToggle(),
                     noiseRouter2.veinRidged(),
                     noiseRouter2.veinGap(),
                     noiseConfig.getOreRandomDeriver()
