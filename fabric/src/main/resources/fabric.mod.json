@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "customoreveins",
+  "version": "${version}",
+  "name": "Custom Ore Veins",
+  "description": "This is an example description! Tell everyone what your mod is about!",
+  "authors": [
+    "orlouge"
+  ],
+  "contact": {
+    "homepage": "https://github.com/orlouge",
+    "sources": "https://github.com/orlouge/custom-ore-veins"
+  },
+  "license": "MIT",
+  "icon": "assets/examplemod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.orlouge.customoreveins.fabric.CustomOreVeinsFabric"
+    ]
+  },
+  "mixins": [
+    "customoreveins.mixins.json",
+    "customoreveins-common.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.20.1"
+  }
+}
