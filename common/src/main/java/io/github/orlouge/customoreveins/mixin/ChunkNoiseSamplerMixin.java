@@ -2,7 +2,10 @@ package io.github.orlouge.customoreveins.mixin;
 
 import com.google.common.collect.ImmutableList;
 import io.github.orlouge.customoreveins.CustomOreVein;
+import io.github.orlouge.customoreveins.HasDimensionType;
 import io.github.orlouge.customoreveins.PlatformHelper;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChainedBlockSource;
 import net.minecraft.world.gen.chunk.*;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
@@ -31,7 +34,11 @@ public abstract class ChunkNoiseSamplerMixin {
         ImmutableList.Builder<ChunkNoiseSampler.BlockStateSampler> builder = ImmutableList.builder();
         builder.add(this.blockStateSampler);
          */
-        for (CustomOreVein vein : PlatformHelper.getCustomOreVeinManager().getCustomOreVeins()) {
+        RegistryEntry<DimensionType> dimension = null;
+        if (((Object) noiseConfig) instanceof HasDimensionType noiseWithDimension) {
+            dimension = noiseWithDimension.getDimension();
+        }
+        for (CustomOreVein vein : PlatformHelper.getCustomOreVeinManager().getCustomOreVeins(dimension)) {
             builder.add(vein.createSampler(
                     d -> this.getActualDensityFunction(d.apply(new CustomOreVein.Visitor(noiseConfig))),
                     noiseRouter2.veinToggle(),

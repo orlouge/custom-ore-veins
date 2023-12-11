@@ -7,12 +7,15 @@ import com.mojang.serialization.JsonOps;
 import net.minecraft.registry.BuiltinRegistries;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryOps;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
+import net.minecraft.world.dimension.DimensionType;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -45,7 +48,8 @@ public class CustomOreVeinManager extends JsonDataLoader {
         this.customOreVeins = veins;
     }
 
-    public Collection<CustomOreVein> getCustomOreVeins() {
-        return customOreVeins.values();
+    public Collection<CustomOreVein> getCustomOreVeins(RegistryEntry<DimensionType> dimension) {
+        if (dimension == null || dimension.getKey().isEmpty()) return Collections.emptyList();
+        return customOreVeins.values().stream().filter(cov -> cov.dimension().equals(dimension.getKey().get())).toList();
     }
 }

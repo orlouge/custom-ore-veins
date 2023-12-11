@@ -6,7 +6,9 @@
   "client": [
   ],
   "mixins": [
-    "ChunkNoiseSamplerMixin"
+    "ChunkNoiseSamplerMixin",
+    "NoiseConfigMixin",
+    "ThreadedAnvilChunkStorageMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -4,12 +4,16 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.util.math.noise.InterpolatedNoiseSampler;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.math.random.RandomSplitter;
+import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.dimension.DimensionTypes;
 import net.minecraft.world.gen.chunk.ChunkNoiseSampler;
 import net.minecraft.world.gen.densityfunction.DensityFunction;
 import net.minecraft.world.gen.noise.NoiseConfig;
@@ -17,7 +21,7 @@ import net.minecraft.world.gen.noise.NoiseConfig;
 import java.util.Optional;
 
 public record CustomOreVein(
-        Toggle toggle, Optional<Ridged> ridged, Optional<Gap> gap,
+        Toggle toggle, Optional<Ridged> ridged, Optional<Gap> gap, RegistryKey<DimensionType> dimension,
         double minOreThreshold, double maxOreThreshold, double minOreChance, double maxOreChance, double rawOreChance,
         double blockGenerationChance, Optional<Integer> maxDensityIntrusion, double liminalDensityReduction,
         Block ore, Optional<Block> rawOreBlock, Block stone
@@ -26,6 +30,7 @@ public record CustomOreVein(
             Toggle.CODEC.fieldOf("toggle").forGetter(CustomOreVein::toggle),
             Ridged.CODEC.optionalFieldOf("ridged").forGetter(CustomOreVein::ridged),
             Gap.CODEC.optionalFieldOf("gap").forGetter(CustomOreVein::gap),
+            RegistryKey.createCodec(RegistryKeys.DIMENSION_TYPE).optionalFieldOf("dimension", DimensionTypes.OVERWORLD).forGetter(CustomOreVein::dimension),
             Codec.DOUBLE.optionalFieldOf("min_ore_threshold", 0.0).forGetter(CustomOreVein::minOreThreshold),
             Codec.DOUBLE.optionalFieldOf("max_ore_threshold", 0.2).forGetter(CustomOreVein::maxOreThreshold),
             Codec.DOUBLE.optionalFieldOf("min_ore_chance", 0.16).forGetter(CustomOreVein::minOreChance),
