@@ -1,0 +1,77 @@
+{
+    "toggle": {
+      "density": {
+        "type": "minecraft:interpolated",
+        "argument": {
+          "type": "minecraft:range_choice",
+          "input": "minecraft:y",
+          "min_inclusive": -60,
+          "max_exclusive": 51,
+          "when_in_range": {
+            "type": "minecraft:noise",
+            "noise": "regional_ore_veins:ore_veininess_rare",
+            "xz_scale": 1.5,
+            "y_scale": 1.5
+          },
+          "when_out_of_range": 0
+        }
+      },
+      "min_value": 0.4,
+      "min_y": -64,
+      "max_y": 0
+    },
+    "ridged": {
+      "density": {
+        "type": "minecraft:add",
+        "argument1": -0.08,
+        "argument2": {
+          "type": "minecraft:max",
+          "argument1": {
+            "type": "minecraft:abs",
+            "argument": {
+              "type": "minecraft:interpolated",
+              "argument": {
+                "type": "minecraft:range_choice",
+                "input": "minecraft:y",
+                "min_inclusive": -60,
+                "max_exclusive": 51,
+                "when_in_range": {
+                  "type": "minecraft:noise",
+                  "noise": "regional_ore_veins:ore_vein_c",
+                  "xz_scale": 4,
+                  "y_scale": 4
+                },
+                "when_out_of_range": 0
+              }
+            }
+          },
+          "argument2": {
+            "type": "minecraft:abs",
+            "argument": {
+              "type": "minecraft:interpolated",
+              "argument": {
+                "type": "minecraft:range_choice",
+                "input": "minecraft:y",
+                "min_inclusive": -60,
+                "max_exclusive": 51,
+                "when_in_range": {
+                  "type": "minecraft:noise",
+                  "noise": "minecraft:ore_vein_b",
+                  "xz_scale": 4,
+                  "y_scale": 4
+                },
+                "when_out_of_range": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "gap": {
+        "min_value": -0.2
+    },
+    "min_ore_chance": 0.03,
+    "max_ore_chance": 0.08,
+    "ore": "deepslate_diamond_ore",
+    "stone": "basalt"
+}
