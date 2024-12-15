@@ -1,7 +1,7 @@
-package io.github.orlouge.customoreveins.forge;
+package io.github.orlouge.customoreveins.neoforge;
 
 import io.github.orlouge.customoreveins.CustomOreVeinManager;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.neoforged.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
 

@@ -1,16 +1,16 @@
-package io.github.orlouge.customoreveins.forge;
+package io.github.orlouge.customoreveins.neoforge;
 
 import io.github.orlouge.customoreveins.CustomOreVeinsMod;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
 @Mod(CustomOreVeinsMod.MOD_ID)
 public class CustomOreVeinsForge {
     public CustomOreVeinsForge() {
         CustomOreVeinsMod.init();
-        MinecraftForge.EVENT_BUS.addListener(this::reloadListenerEventHandler);
+        NeoForge.EVENT_BUS.addListener(this::reloadListenerEventHandler);
     }
 
     private void reloadListenerEventHandler(AddReloadListenerEvent event) {

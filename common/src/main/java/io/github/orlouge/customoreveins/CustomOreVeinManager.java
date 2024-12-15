@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 
 public class CustomOreVeinManager extends JsonDataLoader {
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static final Identifier ID = new Identifier(CustomOreVeinsMod.MOD_ID, "worldgen/custom_ore_veins");
+    public static final Identifier ID = Identifier.of(CustomOreVeinsMod.MOD_ID, "worldgen/custom_ore_veins");
     private Map<Identifier, CustomOreVein> customOreVeins = Map.of();
     public Supplier<DynamicRegistryManager> registryAccess = () -> null;
 
@@ -40,7 +40,7 @@ public class CustomOreVeinManager extends JsonDataLoader {
 
         prepared.forEach((identifier, jsonElement) -> {
             if (jsonElement == null) return;
-            CustomOreVein vein = CustomOreVein.CODEC.decode(ops, jsonElement).getOrThrow(false, s -> {}).getFirst();
+            CustomOreVein vein = CustomOreVein.CODEC.decode(ops, jsonElement).getOrThrow().getFirst();
             veins.put(identifier, vein);
             System.out.println("Loaded " + identifier);
         });
