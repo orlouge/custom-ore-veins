@@ -8,7 +8,7 @@
   "mixins": [
     "ChunkNoiseSamplerMixin",
     "NoiseConfigMixin",
-    "ThreadedAnvilChunkStorageMixin"
+    "ServerChunkLoadingManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

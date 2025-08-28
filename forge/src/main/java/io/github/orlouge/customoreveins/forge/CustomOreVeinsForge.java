@@ -14,8 +14,8 @@ public class CustomOreVeinsForge {
     }
 
     private void reloadListenerEventHandler(AddReloadListenerEvent event) {
-        DynamicRegistryManager registry = event.getRegistryAccess();
-        PlatformHelperImpl.CUSTOM_ORE_VEIN_MANAGER.registryAccess = () -> registry;
+//        DynamicRegistryManager registry = event.getRegistryAccess();
+//        PlatformHelperImpl.CUSTOM_ORE_VEIN_MANAGER.registryAccess = () -> registry;
         event.addListener(PlatformHelperImpl.CUSTOM_ORE_VEIN_MANAGER);
     }
 }

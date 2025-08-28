@@ -1,12 +1,6 @@
 package io.github.orlouge.customoreveins;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.mojang.serialization.JsonOps;
-import net.minecraft.registry.BuiltinRegistries;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryOps;
+import net.minecraft.registry.*;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
@@ -18,30 +12,21 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
-public class CustomOreVeinManager extends JsonDataLoader {
-    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    public static final Identifier ID = new Identifier(CustomOreVeinsMod.MOD_ID, "worldgen/custom_ore_veins");
+public class CustomOreVeinManager extends JsonDataLoader<CustomOreVein> {
+    public static final Identifier ID = Identifier.of("worldgen/custom_ore_veins");
+    public static final RegistryKey<Registry<CustomOreVein>> CUSTOM_ORE_VEINS_REGISTRY_KEY = RegistryKey.ofRegistry(ID);
     private Map<Identifier, CustomOreVein> customOreVeins = Map.of();
-    public Supplier<DynamicRegistryManager> registryAccess = () -> null;
-
-    public CustomOreVeinManager() {
-        super(GSON, ID.getPath());
+    public CustomOreVeinManager(DynamicRegistryManager dynamicRegistryManager) {
+        super(dynamicRegistryManager, CustomOreVein.CODEC, CUSTOM_ORE_VEINS_REGISTRY_KEY);
     }
 
-
-
     @Override
-    protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
+    protected void apply(Map<Identifier, CustomOreVein> prepared, ResourceManager manager, Profiler profiler) {
         Map<Identifier, CustomOreVein> veins = new HashMap<>();
-        DynamicRegistryManager registryAccess = this.registryAccess.get();
-        RegistryOps<JsonElement> ops = RegistryOps.of(JsonOps.INSTANCE, registryAccess == null ? BuiltinRegistries.createWrapperLookup() : registryAccess);
-
-        prepared.forEach((identifier, jsonElement) -> {
-            if (jsonElement == null) return;
-            CustomOreVein vein = CustomOreVein.CODEC.decode(ops, jsonElement).getOrThrow(false, s -> {}).getFirst();
-            veins.put(identifier, vein);
+        prepared.forEach((identifier, customOreVein) -> {
+            if (customOreVein == null) return;
+            veins.put(identifier, customOreVein);
             System.out.println("Loaded " + identifier);
         });
 

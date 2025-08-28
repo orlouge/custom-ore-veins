@@ -12,9 +12,12 @@ public class CustomOreVeinsFabric implements ModInitializer {
     public void onInitialize() {
         CustomOreVeinsMod.init();
         DynamicRegistrySetupCallback.EVENT.register(view -> {
+            view.registerEntryAdded(RegistryKeys.NOISE_PARAMETERS, (a, b, c) -> {
+
+            });
             if (view.asDynamicRegistryManager().getOptional(RegistryKeys.NOISE_PARAMETERS).isPresent()) {
                 DynamicRegistryManager mgr = view.asDynamicRegistryManager();
-                PlatformHelperImpl.CUSTOM_ORE_VEIN_MANAGER.registryAccess = () -> mgr;
+                PlatformHelperImpl.CUSTOM_ORE_VEIN_MANAGER.updateRegistryAccess(mgr);
             }
         });
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(PlatformHelperImpl.CUSTOM_ORE_VEIN_MANAGER);
